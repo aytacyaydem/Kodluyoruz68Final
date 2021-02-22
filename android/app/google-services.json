@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "344756596851",
+    "project_id": "kodlutoruz69final",
+    "storage_bucket": "kodlutoruz69final.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344756596851:android:4970a090052a409a1f7a06",
+        "android_client_info": {
+          "package_name": "com.local"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "344756596851-uq83rcjrcsha12337on5uef85ar1psi2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC__8XJzXe3q0HKS0OlPF9Li7p3nHdSc8s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "344756596851-uq83rcjrcsha12337on5uef85ar1psi2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
