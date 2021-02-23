@@ -26,6 +26,8 @@ export default function SigninPage({navigation}) {
   };
 
   const handleSubmit = () => {
+    console.log(auth().currentUser)
+    // console.log(user.email.trim())
     Keyboard.dismiss();
     if (user.email.trim() && user.password.trim()) {
       if (!auth().currentUser) {
@@ -39,7 +41,7 @@ export default function SigninPage({navigation}) {
               textColor: 'white',
             });
             setTimeout(() => {
-              navigation.navigate('SecondPage');
+              navigation.navigate('MyPrifile');
             }, 2200);
           })
           .catch((error) => {
@@ -140,7 +142,7 @@ export default function SigninPage({navigation}) {
             Sign in
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => navigation.navigate('Signup')}
           style={styles.buttonSignup}>
           <Text
@@ -152,7 +154,7 @@ export default function SigninPage({navigation}) {
             }}>
             Create Account
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

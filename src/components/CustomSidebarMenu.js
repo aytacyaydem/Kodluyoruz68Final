@@ -19,6 +19,8 @@ import {
 
 import auth from '@react-native-firebase/auth';
 
+import userImage from '../assets/images/user.png';
+
 const CustomSidebarMenu = (props) => {
   const BASE_PATH =
     'https://raw.githubusercontent.com/AboutReact/sampleresource/master/';
@@ -27,7 +29,7 @@ const CustomSidebarMenu = (props) => {
   const userDisplayName =
     auth().currentUser && auth().currentUser.displayName !== null
       ? auth().currentUser.displayName
-      : 'Hello Bro';
+      : '';
 
   const userEmail =
     auth().currentUser && auth().currentUser.email !== null
@@ -36,16 +38,37 @@ const CustomSidebarMenu = (props) => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <View style={styles.sideMenuHeader}>
-        <Image
-          source={{uri: BASE_PATH + proileImage}}
-          style={styles.sideMenuProfileIcon}
-        />
-        <View>
-          <Text>{userDisplayName}</Text>
-          <Text>{userEmail}</Text>
+      {auth().currentUser ? (
+        <View style={styles.sideMenuHeader}>
+          <Image
+            source={{uri: BASE_PATH + proileImage}}
+            style={[
+              styles.sideMenuProfileIcon,
+              styles.sideMenuProfileIconLoggedIn,
+            ]}
+          />
+          <View>
+            <Text>{userDisplayName}</Text>
+            <Text>{userEmail}</Text>
+          </View>
         </View>
-      </View>
+      ) : (
+        <View style={styles.sideMenuHeader}>
+          <Image
+            source={require(`../assets/images/user.png`)}
+            style={[
+              styles.sideMenuProfileIcon,
+              styles.sideMenuProfileIconNotLoggedIn,
+            ]}
+          />
+          <View>
+            <DrawerItem
+              label="Giriş yap"
+              onPress={() => props.navigation.navigate('Signin')}
+            />
+          </View>
+        </View>
+      )}
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
         <DrawerItem
@@ -54,8 +77,8 @@ const CustomSidebarMenu = (props) => {
         />
         <View style={styles.customItem}>
           <Text
-            // onPress={() => } You Can handle click this item
-            >
+          // onPress={() => } You Can handle click this item
+          >
             Rate Us
           </Text>
           <Image
@@ -64,14 +87,10 @@ const CustomSidebarMenu = (props) => {
           />
         </View>
       </DrawerContentScrollView>
-      <Text
-        style={{
-          fontSize: 16,
-          textAlign: 'center',
-          color: 'grey' /* , flex: 3 */,
-        }}>
-          Çıkış yap
-      </Text>
+      <DrawerItem
+        label="Çıkış yap"
+        // onPress={() => } You Can handle click this item
+      />
     </SafeAreaView>
   );
 };
@@ -90,7 +109,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(0,0,0,.4)',
     backgroundColor: '#eee',
+  },
+  sideMenuProfileIconLoggedIn: {
     marginBottom: 12,
+  },
+  sideMenuProfileIconNotLoggedIn: {
+    padding: 20,
   },
   iconStyle: {
     width: 15,

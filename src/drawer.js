@@ -1,20 +1,24 @@
 import React from 'react';
 import {View, TouchableOpacity, Image} from 'react-native';
 
-import {NavigationContainer} from '@react-navigation/native';
+import {
+  NavigationContainer,
+  getFocusedRouteNameFromRoute,
+} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import MyPrifile from './pages/profile/MyProfile';
 import SigninPage from './pages/login/SigninPage';
 import OrderHistory from './pages/order-history/OrderHistory';
 import AddressInformations from './pages/address/AddressInfos';
 
-// Import Custom Sidebar
 import CustomSidebarMenu from './components/CustomSidebarMenu';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
 const NavigationDrawerStructure = (props) => {
   const toggleDrawer = () => {
@@ -37,56 +41,92 @@ const NavigationDrawerStructure = (props) => {
   );
 };
 
-function testSignInScreenStack({navigation}) {
-  return (
-    <Stack.Navigator initialRouteName="SigninPage">
-      <Stack.Screen
-        name="SigninPage"
-        component={SigninPage}
-        options={{
-          title: 'Sign in', //Set Header Title
-          headerLeft: () => (
-            <NavigationDrawerStructure navigationProps={navigation} />
-          ),
-          headerStyle: {
-            backgroundColor: '#f4511e', //Set Header color
-          },
-          headerTintColor: '#fff', //Set Header text color
-          headerTitleStyle: {
-            fontWeight: 'bold', //Set Header text style
-          },
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
+const getHeaderTitle = (route) => {
+  const routeName = getFocusedRouteNameFromRoute(route) ?? 'Feed';
 
-function myProfileScreenStack({navigation}) {
+  switch (routeName) {
+    case 'MyPrifile':
+      return 'Hesabim';
+    case 'AddressInformations':
+      return 'Address Bilgileri';
+    case 'BottomTabStack':
+      return 'Home';
+  }
+};
+
+const BottomTabStack = () => {
   return (
-    <Stack.Navigator
+    <Tab.Navigator
       initialRouteName="MyPrifile"
-      screenOptions={{
-        headerLeft: () => (
-          <NavigationDrawerStructure navigationProps={navigation} />
-        ),
-        headerStyle: {
-          backgroundColor: '#f4511e', //Set Header color
+      tabBarOptions={{
+        activeTintColor: 'tomato',
+        inactiveTintColor: 'gray',
+        style: {
+          backgroundColor: '#e0e0e0',
         },
-        headerTintColor: '#fff', //Set Header text color
-        headerTitleStyle: {
-          fontWeight: 'bold', //Set Header text style
+        labelStyle: {
+          textAlign: 'center',
+          fontSize: 16,
         },
       }}>
-      <Stack.Screen
+      <Tab.Screen
         name="MyPrifile"
         component={MyPrifile}
         options={{
-          title: 'My Profile', //Set Header Title
+          tabBarLabel: 'Hesabim',
+          /*tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="home"
+              color={color}
+              size={size}
+            />
+          ),*/
         }}
       />
-    </Stack.Navigator>
+      <Tab.Screen
+        name="AddressInformations"
+        component={AddressInformations}
+        options={{
+          tabBarLabel: 'Address Bilgileri',
+        }}
+      />
+      <Tab.Screen
+        name="OrderHistory"
+        component={OrderHistory}
+        options={{
+          tabBarLabel: 'order',
+        }}
+      />
+    </Tab.Navigator>
   );
-}
+};
+
+// function myProfileScreenStack({navigation}) {
+//   return (
+//     <Stack.Navigator
+//       initialRouteName="MyPrifile"
+//       screenOptions={{
+//         headerLeft: () => (
+//           <NavigationDrawerStructure navigationProps={navigation} />
+//         ),
+//         headerStyle: {
+//           backgroundColor: '#f4511e', //Set Header color
+//         },
+//         headerTintColor: '#fff', //Set Header text color
+//         headerTitleStyle: {
+//           fontWeight: 'bold', //Set Header text style
+//         },
+//       }}>
+//       <Stack.Screen
+//         name="MyPrifile"
+//         component={MyPrifile}
+//         options={{
+//           title: 'My Profile', //Set Header Title
+//         }}
+//       />
+//     </Stack.Navigator>
+//   );
+// }
 
 function ordersHistoryScreenStack({navigation}) {
   return (
@@ -139,41 +179,92 @@ function addressInformationsScreenStack({navigation}) {
         }}
       />
     </Stack.Navigator>
+    
   );
 }
 
-function App() {
+function testSignInScreenStack({navigation}) {
   return (
-    <NavigationContainer>
-      <Drawer.Navigator
-        drawerContentOptions={{
-          activeTintColor: '#e91e63',
-          itemStyle: {marginVertical: 5},
-        }}
-        drawerContent={(props) => <CustomSidebarMenu {...props} />}>
-        <Drawer.Screen
-          name="MyPrifile"
-          options={{drawerLabel: 'My Profile'}}
-          component={myProfileScreenStack}
-        />
-        <Drawer.Screen
-          name="Adres bilgileri"
-          options={{drawerLabel: 'Adres bilgileri'}}
-          component={addressInformationsScreenStack}
-        />
-        <Drawer.Screen
-          name="Sipariş Geçmişi"
-          options={{drawerLabel: 'Sipariş Geçmişi'}}
-          component={ordersHistoryScreenStack}
-        />
-        <Drawer.Screen
-          name="SigninPage"
-          options={{drawerLabel: 'Sign in Page'}} // this page for test while waiting Beyzanur
-          component={testSignInScreenStack}
-        />
-      </Drawer.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator initialRouteName="Signin">
+      <Stack.Screen
+        name="Signin"
+        component={SigninPage}
+        options={({route}) => ({
+          headerTitle: getHeaderTitle(route),
+          headerLeft: () => (
+            <NavigationDrawerStructure navigationProps={navigation} />
+          ),
+          headerStyle: {
+            backgroundColor: '#f4511e', //Set Header color
+          },
+          headerTintColor: '#fff', //Set Header text color
+          headerTitleStyle: {
+            fontWeight: 'bold', //Set Header text style
+          },
+        })}
+      />
+    </Stack.Navigator>
   );
 }
+
+const HomeScreenStack = ({navigation}) => {
+  return (
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen
+        name="Home"
+        component={BottomTabStack}
+        options={({route}) => ({
+          headerTitle: getHeaderTitle(route),
+          headerLeft: () => (
+            <NavigationDrawerStructure navigationProps={navigation} />
+          ),
+          headerStyle: {
+            backgroundColor: '#f4511e', //Set Header color
+          },
+          headerTintColor: '#fff', //Set Header text color
+          headerTitleStyle: {
+            fontWeight: 'bold', //Set Header text style
+          },
+        })}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const App = () => {
+  return (
+    <>
+      <NavigationContainer>
+        <Drawer.Navigator
+          drawerContentOptions={{
+            activeTintColor: '#e91e63',
+            itemStyle: {marginVertical: 5},
+          }}
+          drawerContent={(props) => <CustomSidebarMenu {...props} />}>
+          <Drawer.Screen
+            name="MyPrifile"
+            options={{drawerLabel: 'My Profile'}}
+            component={HomeScreenStack}
+          />
+          <Drawer.Screen
+            name="Adres bilgileri"
+            options={{drawerLabel: 'Adres bilgileri'}}
+            component={addressInformationsScreenStack}
+          />
+          <Drawer.Screen
+            name="Sipariş Geçmişi"
+            options={{drawerLabel: 'Sipariş Geçmişi'}}
+            component={ordersHistoryScreenStack}
+          />
+          <Drawer.Screen
+            name="Signin"
+            options={{drawerLabel: 'Sign in Page'}} // this page for test while waiting Beyzanur
+            component={testSignInScreenStack}
+          />
+        </Drawer.Navigator>
+      </NavigationContainer>
+    </>
+  );
+};
 
 export default App;
