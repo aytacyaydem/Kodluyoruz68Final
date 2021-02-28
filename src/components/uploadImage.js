@@ -73,22 +73,6 @@ const UploadImage = () => {
     let isStoragePermitted = await requestExternalWritePermission();
     if (isCameraPermitted && isStoragePermitted) {
       launchCamera(options, (response) => {
-        // console.log('Response = ', response);
-
-        // if (response.didCancel) {
-        //   alert('User cancelled camera picker');
-        //   return;
-        // } else if (response.errorCode == 'camera_unavailable') {
-        //   alert('Camera not available on device');
-        //   return;
-        // } else if (response.errorCode == 'permission') {
-        //   alert('Permission not satisfied');
-        //   return;
-        // } else if (response.errorCode == 'others') {
-        //   alert(response.errorMessage);
-        //   return;
-        // }
-
         ImgToBase64.getBase64String(filePath.uri).then((base64String) => {
           setImageData(base64String);
           imagetest = base64String;
@@ -133,7 +117,6 @@ const UploadImage = () => {
   };
 
   const handleChangeImage = () => {
-    // console.log(imagetest);
     if (imageData) {
       if (auth().currentUser.uid) {
         database()
@@ -151,8 +134,8 @@ const UploadImage = () => {
                 textColor: 'green',
               },
             });
-          })
-          // .catch((err) => console.log(err));
+          });
+        // .catch((err) => console.log(err));
       } else {
         database()
           .ref(`/users/${auth().currentUser.uid}`)
@@ -169,8 +152,8 @@ const UploadImage = () => {
                 textColor: 'green',
               },
             });
-          })
-          // .catch((err) => console.log(err));
+          });
+        // .catch((err) => console.log(err));
       }
     } else {
       Snackbar.show({
@@ -187,13 +170,6 @@ const UploadImage = () => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
-        {/* <Image
-          source={{
-            uri: 'data:image/jpeg;base64,' + filePath.data,
-          }}
-          style={styles.imageStyle}
-        /> */}
-        {/* {console.log(filePath)} */}
         <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
         <Text style={styles.textStyle}>{filePath.uri}</Text>
         <TouchableOpacity
@@ -210,9 +186,8 @@ const UploadImage = () => {
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.5}
-          // style={styles.buttonStyle}
           onPress={() => handleChangeImage()}>
-          <Text style={styles.textStyle}>Choose foto</Text>
+          <Text style={styles.submitBtnText}>Choose foto</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -223,7 +198,6 @@ export default UploadImage;
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 2,
     padding: 10,
     backgroundColor: '#fff',
     alignItems: 'center',
@@ -250,5 +224,16 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     margin: 5,
+  },
+  submitBtn: {
+    borderRadius: 4,
+    paddingVertical: 8,
+    alignSelf: 'center',
+    paddingHorizontal: 20,
+    backgroundColor: 'tomato',
+  },
+  submitBtnText: {
+    color: '#fff',
+    textAlign: 'center',
   },
 });

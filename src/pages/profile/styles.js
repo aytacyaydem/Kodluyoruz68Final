@@ -18,14 +18,7 @@ const styles = StyleSheet.create({
     borderBottomColor: 'rgba(0,0,0,0.4)',
     paddingBottom: 10,
     marginBottom: 10,
-    // flex: 2,
-    // justifyContent: "center",
-    // backgroundColor: "blue"
   },
-  // formContainer: {
-  //   flex: 1,
-  //   backgroundColor: "red"
-  // },
   formInputsBesideContainer: {
     width: deviceSize.width / 1 - 40,
     marginTop: 20,

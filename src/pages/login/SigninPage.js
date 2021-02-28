@@ -16,7 +16,6 @@ import {styles} from './styles';
 
 export default function SigninPage({navigation}) {
   const [user, setUser] = useState({
-    name: '',
     email: '',
     password: '',
   });
@@ -41,7 +40,7 @@ export default function SigninPage({navigation}) {
               textColor: 'white',
             });
             setTimeout(() => {
-              navigation.navigate('MyPrifile');
+              navigation.navigate('Home');
             }, 2200);
           })
           .catch((error) => {
