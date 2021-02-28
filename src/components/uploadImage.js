@@ -152,7 +152,7 @@ const UploadImage = () => {
               },
             });
           })
-          .catch((err) => console.log(err));
+          // .catch((err) => console.log(err));
       } else {
         database()
           .ref(`/users/${auth().currentUser.uid}`)
@@ -170,7 +170,7 @@ const UploadImage = () => {
               },
             });
           })
-          .catch((err) => console.log(err));
+          // .catch((err) => console.log(err));
       }
     } else {
       Snackbar.show({

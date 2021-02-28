@@ -10,6 +10,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import MyPrifile from './pages/profile/MyProfile';
+import HomeScreen from './pages/home/home';
 import SigninPage from './pages/login/SigninPage';
 import OrderHistory from './pages/order-history/OrderHistory';
 import AddressInformations from './pages/address/AddressInfos';
@@ -45,8 +46,8 @@ const getHeaderTitle = (route) => {
   const routeName = getFocusedRouteNameFromRoute(route) ?? 'Feed';
 
   switch (routeName) {
-    case 'MyPrifile':
-      return 'Hesabim';
+    case 'Home':
+      return 'Ana Sayfa';
     case 'AddressInformations':
       return 'Address Bilgileri';
     case 'BottomTabStack':
@@ -57,7 +58,7 @@ const getHeaderTitle = (route) => {
 const BottomTabStack = () => {
   return (
     <Tab.Navigator
-      initialRouteName="MyPrifile"
+      initialRouteName="Home"
       tabBarOptions={{
         activeTintColor: 'tomato',
         inactiveTintColor: 'gray',
@@ -70,10 +71,10 @@ const BottomTabStack = () => {
         },
       }}>
       <Tab.Screen
-        name="MyPrifile"
-        component={MyPrifile}
+        name="Home"
+        component={HomeScreen}
         options={{
-          tabBarLabel: 'Hesabim',
+          tabBarLabel: 'Ana Sayfa',
           /*tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
               name="home"
@@ -101,32 +102,32 @@ const BottomTabStack = () => {
   );
 };
 
-// function myProfileScreenStack({navigation}) {
-//   return (
-//     <Stack.Navigator
-//       initialRouteName="MyPrifile"
-//       screenOptions={{
-//         headerLeft: () => (
-//           <NavigationDrawerStructure navigationProps={navigation} />
-//         ),
-//         headerStyle: {
-//           backgroundColor: '#f4511e', //Set Header color
-//         },
-//         headerTintColor: '#fff', //Set Header text color
-//         headerTitleStyle: {
-//           fontWeight: 'bold', //Set Header text style
-//         },
-//       }}>
-//       <Stack.Screen
-//         name="MyPrifile"
-//         component={MyPrifile}
-//         options={{
-//           title: 'My Profile', //Set Header Title
-//         }}
-//       />
-//     </Stack.Navigator>
-//   );
-// }
+function myProfileScreenStack({navigation}) {
+  return (
+    <Stack.Navigator
+      initialRouteName="MyPrifile"
+      screenOptions={{
+        headerLeft: () => (
+          <NavigationDrawerStructure navigationProps={navigation} />
+        ),
+        headerStyle: {
+          backgroundColor: '#f4511e', //Set Header color
+        },
+        headerTintColor: '#fff', //Set Header text color
+        headerTitleStyle: {
+          fontWeight: 'bold', //Set Header text style
+        },
+      }}>
+      <Stack.Screen
+        name="MyPrifile"
+        component={MyPrifile}
+        options={{
+          title: 'My Profile', //Set Header Title
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
 
 function ordersHistoryScreenStack({navigation}) {
   return (
@@ -179,7 +180,6 @@ function addressInformationsScreenStack({navigation}) {
         }}
       />
     </Stack.Navigator>
-    
   );
 }
 
@@ -242,9 +242,14 @@ const App = () => {
           }}
           drawerContent={(props) => <CustomSidebarMenu {...props} />}>
           <Drawer.Screen
+            name="Home"
+            options={{drawerLabel: 'Ana Sayfa'}}
+            component={HomeScreenStack}
+          />
+          <Drawer.Screen
             name="MyPrifile"
             options={{drawerLabel: 'My Profile'}}
-            component={HomeScreenStack}
+            component={myProfileScreenStack}
           />
           <Drawer.Screen
             name="Adres bilgileri"
