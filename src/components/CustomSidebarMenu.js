@@ -1,15 +1,5 @@
-// Custom Navigation Drawer / Sidebar with Image and Icon in Menu Options
-// https://aboutreact.com/custom-navigation-drawer-sidebar-with-image-and-icon-in-menu-options/
-
 import React from 'react';
-import {
-  SafeAreaView,
-  View,
-  StyleSheet,
-  Image,
-  Text,
-  Linking,
-} from 'react-native';
+import {SafeAreaView, View, StyleSheet, Image, Text} from 'react-native';
 
 import {
   DrawerContentScrollView,
@@ -17,9 +7,8 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 
+import Snackbar from 'react-native-snackbar';
 import auth from '@react-native-firebase/auth';
-
-import userImage from '../assets/images/user.png';
 
 const CustomSidebarMenu = (props) => {
   const BASE_PATH =
@@ -35,6 +24,23 @@ const CustomSidebarMenu = (props) => {
     auth().currentUser && auth().currentUser.email !== null
       ? auth().currentUser.email
       : '';
+
+  const handleSignOut = () => {
+    if (auth().currentUser) {
+      auth().signOut();
+      Snackbar.show({
+        text: 'Çıkış yapıldı!',
+        duration: 1600,
+        backgroundColor: 'tomato',
+        textColor: 'white',
+      });
+      setTimeout(() => {
+        props.navigation.navigate('Signin');
+      }, 600);
+    } else {
+      props.navigation.navigate('Signin');
+    }
+  };
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -89,7 +95,7 @@ const CustomSidebarMenu = (props) => {
       </DrawerContentScrollView>
       <DrawerItem
         label="Çıkış yap"
-        // onPress={() => } You Can handle click this item
+        onPress={() => handleSignOut()} //You Can handle click this item
       />
     </SafeAreaView>
   );

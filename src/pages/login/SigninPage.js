@@ -26,7 +26,7 @@ export default function SigninPage({navigation}) {
   };
 
   const handleSubmit = () => {
-    console.log(auth().currentUser)
+    // console.log(auth().currentUser)
     // console.log(user.email.trim())
     Keyboard.dismiss();
     if (user.email.trim() && user.password.trim()) {
