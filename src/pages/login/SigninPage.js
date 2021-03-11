@@ -112,7 +112,7 @@ export default function SigninPage({navigation}) {
         /> */}
 
         <View style={styles.inputContainer}>
-          <Text>Email</Text>
+          {/* <Text>Email</Text> */}
           <TextInput
             style={styles.inputFields}
             onChangeText={(val) => handleChangeInputs('email', val)}
@@ -120,14 +120,18 @@ export default function SigninPage({navigation}) {
             keyboardType="email-address"
             blurOnSubmit={true}
             autoCorrect={false}
+            placeholder="E-mail address"
+            placeholderTextColor={'#55a0ff'}
           />
-          <Text>Password</Text>
+          {/* <Text>Password</Text> */}
           <TextInput
             style={styles.inputFields}
             onChangeText={(val) => handleChangeInputs('password', val)}
             autoCapitalize="none"
             secureTextEntry={true}
             blurOnSubmit={true}
+            placeholder="Password"
+            placeholderTextColor={'#55a0ff'}
           />
         </View>
         <TouchableOpacity onPress={handleSubmit} style={styles.button}>

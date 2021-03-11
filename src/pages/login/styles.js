@@ -55,10 +55,20 @@ const styles = StyleSheet.create({
     elevation: 11,
   },
   inputContainer: {
-    marginHorizontal: 20,
-    marginBottom: 20,
+    margin: 20,
+    padding: 20,
+    backgroundColor: 'white',
+    borderColor: 'tomato',
+    borderRadius: 5,
+    elevation: 10,
+    borderWidth: 2,
+    fontSize: 12,
   },
-  container: {margin: 30, flex: 1},
+  container: {
+    margin: 30,
+    flex: 1,
+    justifyContent: 'space-evenly',
+  },
 });
 
 export {styles};

@@ -73,6 +73,7 @@ const BottomTabStack = () => {
       <Tab.Screen
         name="Home"
         component={HomeScreen}
+        headerShown={false}
         options={{
           tabBarLabel: 'Ana Sayfa',
           /*tabBarIcon: ({ color, size }) => (

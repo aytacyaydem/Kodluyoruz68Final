@@ -35,34 +35,41 @@ const category_button = StyleSheet.create({
     letterSpacing: 2,
     fontSize: 15,
   },
-  activeText : {
-      color:"white"
-  }
+  activeText: {
+    color: 'white',
+  },
 });
 
 const suggestion_list = StyleSheet.create({
-    container : {
-        paddingHorizontal:10,
-        marginTop:5
-    },
-    title : {
-        fontSize:20,
-        marginBottom:10
-    }
-})
+  container: {
+    paddingHorizontal: 10,
+    marginBottom: 10,
+    padding: 15,
+    backgroundColor: 'white',
+    borderRadius: 5,
+    elevation: 5,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+});
 
 const suggestion_item = StyleSheet.create({
-    container : {
-        marginHorizontal:5,
-        borderRadius:deviceWidth,
-        borderWidth:1.5,
-        borderColor:"#ff3d00"
-    },
-    image : {
-        width:deviceWidth / 5,
-        height : deviceWidth /5,
-        borderRadius:deviceWidth 
-    }
-})
+  container: {
+    marginHorizontal: 5,
+    borderRadius: deviceWidth,
+    borderWidth: 1.5,
+    borderColor: '#ff3d00',
+  },
+  image: {
+    width: deviceWidth / 5,
+    height: deviceWidth / 5,
+    borderRadius: deviceWidth,
+  },
+});
 
-export {category_button,suggestion_list,suggestion_item};
+export {category_button, suggestion_list, suggestion_item};
