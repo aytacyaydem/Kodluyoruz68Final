@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, Image, FlatList, Dimensions} from 'react-native';
 import useApi from '../../hooks/useApi';
 import {CategoryButton, Suggestion} from '../../components';
 
@@ -27,7 +27,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     console.log(resultMeals);
-  },[resultMeals])
+  }, [resultMeals]);
 
   //Eğer bir kategori seçiliyse seçilen kategorideki ürünleri getirir. Her kategori değiştiğinde yeniden tetiklenir.
   useEffect(() => {
@@ -54,7 +54,34 @@ const HomeScreen = () => {
   }
   //Yemekleri bu fonksiyon ile Render ediyoruz.
   function renderMeal({item}) {
-    return <Text>{item.strMeal}</Text>;
+    return (
+      <View
+        style={{
+          width: Dimensions.get('window').width / 2.8,
+          flex: 1,
+          backgroundColor: '#eee',
+          borderWidth: 1,
+          borderColor: 'white',
+          borderRadius: 5,
+          elevation: 5,
+          padding: 5,
+          margin: 10,
+          alignContent: 'center',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Image
+          source={{uri: item.strMealThumb}}
+          style={{
+            height: 70,
+            width: 70,
+            resizeMode: 'center',
+            borderRadius: 90,
+          }}
+        />
+        <Text>{item.strMeal} </Text>
+      </View>
+    );
   }
   return (
     <View style={{flex: 1}}>
@@ -69,6 +96,7 @@ const HomeScreen = () => {
       </View>
       <Suggestion />
       <FlatList
+        numColumns={2}
         data={resultMeals.meals}
         renderItem={renderMeal}
         keyExtractor={(_, index) => index.toString()}
