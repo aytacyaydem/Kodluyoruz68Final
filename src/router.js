@@ -85,18 +85,18 @@ const BottomTabStack = () => {
           ),*/
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="AddressInformations"
         component={AddressInformations}
         options={{
           tabBarLabel: 'Address Bilgileri',
         }}
-      />
+      /> */}
       <Tab.Screen
         name="OrderHistory"
         component={OrderHistory}
         options={{
-          tabBarLabel: 'order',
+          tabBarLabel: 'Sipariş Geçmişi',
         }}
       />
     </Tab.Navigator>
@@ -173,13 +173,13 @@ function addressInformationsScreenStack({navigation}) {
           fontWeight: 'bold', //Set Header text style
         },
       }}>
-      <Stack.Screen
+      {/* <Stack.Screen
         name="AddressInformations"
         component={AddressInformations}
         options={{
           title: 'Adres bilgileri', //Set Header Title
         }}
-      />
+      /> */}
     </Stack.Navigator>
   );
 }
@@ -252,11 +252,11 @@ const App = () => {
             options={{drawerLabel: 'My Profile'}}
             component={myProfileScreenStack}
           />
-          <Drawer.Screen
+          {/* <Drawer.Screen
             name="Adres bilgileri"
             options={{drawerLabel: 'Adres bilgileri'}}
             component={addressInformationsScreenStack}
-          />
+          /> */}
           <Drawer.Screen
             name="Sipariş Geçmişi"
             options={{drawerLabel: 'Sipariş Geçmişi'}}
